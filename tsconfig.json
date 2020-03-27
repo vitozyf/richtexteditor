@@ -14,6 +14,7 @@
     "types": ["node"],
     "paths": {
       "@src/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
       "@component/*": ["./src/component/*"],
       "@utils/*": ["./src/utils/*"],
       "@core/*": ["./src/core/*"]

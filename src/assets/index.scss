@@ -1,0 +1,12 @@
+@import './mixin.scss';
+@import './icon.scss';
+@import './toolbar.scss';
+
+p {
+  outline: none;
+  margin: 0;
+}
+.#{$css-prefix} {
+  border: $border-style;
+  border-radius: $border-radius;
+}

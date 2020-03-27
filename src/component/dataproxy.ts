@@ -1,22 +1,5 @@
 import helper from '@core/helper';
-const defaultOptions: IOption = {
-  view: {
-    height: () => document.documentElement.clientHeight,
-    width: () => document.documentElement.clientWidth
-  },
-  style: {
-    bgcolor: '#ffffff',
-    color: '#0a0a0a',
-    border: true,
-    borderWidth: 1,
-    borderColor: '#e6e6e6',
-    font: {
-      name: 'Arial',
-      size: 10,
-      bold: false
-    }
-  }
-};
+import defaultOptions from '@src/default_options';
 
 export default class DataProxy {
   options: IOption;

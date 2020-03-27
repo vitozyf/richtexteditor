@@ -13,6 +13,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.json'],
     alias: {
       '@src': path.resolve('src'),
+      '@assets': path.resolve('src/assets'),
       '@component': path.resolve('src/component'),
       '@core': path.resolve('src/core'),
       '@utils': path.resolve('src/utils')
@@ -44,6 +45,10 @@ module.exports = {
       {
         test: /\.less$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

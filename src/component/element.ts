@@ -14,30 +14,35 @@ class ReElement {
   }
   public el: HTMLElement;
 
-  on(eventNames: string, handler: EventHandlerNonNull) {
-    const [fen, ...oen] = eventNames.split('.');
-    let eventName = fen;
-    if (
-      eventName === 'mousewheel' &&
-      /Firefox/i.test(window.navigator.userAgent)
-    ) {
-      eventName = 'DOMMouseScroll';
+  on(eventNames: EventNames, handler: EventHandler) {
+    // const [fen, ...oen] = eventNames.split('.');
+    // let eventName = fen;
+    // if (
+    //   eventName === 'mousewheel' &&
+    //   /Firefox/i.test(window.navigator.userAgent)
+    // ) {
+    //   eventName = 'DOMMouseScroll';
+    // }
+    // this.el.addEventListener(eventName, (evt: any) => {
+    //   handler(evt);
+    //   for (let i = 0; i < oen.length; i += 1) {
+    //     const k = oen[i];
+    //     if (k === 'left' && evt.button !== 0) {
+    //       return;
+    //     }
+    //     if (k === 'right' && evt.button !== 2) {
+    //       return;
+    //     }
+    //     if (k === 'stop') {
+    //       evt.stopPropagation();
+    //     }
+    //   }
+    // });
+    if (this.el.addEventListener) {
+      this.el.addEventListener(eventNames, handler, false);
+    } else {
+      (<any>this.el).attachEvent('on' + eventNames, handler);
     }
-    this.el.addEventListener(eventName, (evt: any) => {
-      handler(evt);
-      for (let i = 0; i < oen.length; i += 1) {
-        const k = oen[i];
-        if (k === 'left' && evt.button !== 0) {
-          return;
-        }
-        if (k === 'right' && evt.button !== 2) {
-          return;
-        }
-        if (k === 'stop') {
-          evt.stopPropagation();
-        }
-      }
-    });
     return this;
   }
 

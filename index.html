@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>rt-editor</title>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script> -->
   </head>
   <body onload="load()">
     <div class="rt-editor-demo"></div>
+    <script src="/locale/zh-cn"></script>
     <script>
       function load() {
+        rt_editor.locale('zh-cn');
         var re = rt_editor('.rt-editor-demo');
         console.log(re);
       }
