@@ -1,4 +1,4 @@
-interface IOptionView {
+declare interface IOptionView {
   width: (() => number) | number;
   height: (() => number) | number;
 }

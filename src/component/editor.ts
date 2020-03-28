@@ -1,18 +1,26 @@
-import { h } from '@component/element';
+import { h, ReElement } from '@component/element';
 import { cssPrefix } from '@src/config';
-import { ReElement } from '@component/element';
-import Row from '@component/row';
+// import Row from '@component/row';
 import DataProxy from '@component/dataproxy';
-
-export default class Editor {
+import Iframe from '@component/iframe';
+export default class Editor extends Iframe {
   el: ReElement;
   data: DataProxy;
-  row: Row;
+  // row: Row;
   constructor(targetEl: ReElement, data: DataProxy) {
+    super(targetEl);
     this.data = data;
     this.el = h('div', `${cssPrefix}-editor`);
-    this.row = new Row(this.el);
 
-    targetEl.children(this.el);
+    // this.initStyle();
+    // this.row = new Row(this.el);
+    // targetEl.children(this.el);
   }
+
+  // initStyle(){
+  // 	const {IOptionView<>view} = this.data.options;
+  // 	this.el.setCss({
+  // 		width: `${view.width}px`
+  // 	})
+  // }
 }

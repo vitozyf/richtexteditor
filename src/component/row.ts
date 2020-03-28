@@ -12,10 +12,10 @@ export default class Row {
   public name: string = 'editorRow';
   el: ReElement;
   constructor(targetEl: ReElement) {
-    this.el = h('p', `${cssPrefix}-row`);
+    this.el = h('div', `${cssPrefix}-row`);
     this.el
       .on('keydown', <EventHandler>editorRowKeydownHandler)
-      .attr('contenteditable', 'true');
+      .setAttr('contenteditable', 'true');
 
     this.el.html(t('toolbar.undo'));
     targetEl.children(this.el);

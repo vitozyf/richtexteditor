@@ -50,7 +50,7 @@ class ReElement {
     if (value !== undefined) {
       type ObjKey = keyof typeof value;
       Object.keys(value).forEach(k => {
-        this.css(k, `${value[k as ObjKey]}px`);
+        this.setCss(k, `${value[k as ObjKey]}px`);
       });
       return this;
     }
@@ -113,7 +113,6 @@ class ReElement {
     return this;
   }
 
-  // Find out if a ele element is a descendant of a this.el element:
   contains(ele: HTMLElement) {
     return this.el.contains(ele);
   }
@@ -165,16 +164,14 @@ class ReElement {
     return this;
   }
 
-  // key, value
-  // key
-  // {k, v}...
-  attr(key: string | any, value?: string) {
+  getAttr(key: string) {
+    return this.el.getAttribute(key);
+  }
+
+  setAttr(key: string | any, value?: string) {
     if (value !== undefined) {
       this.el.setAttribute(key as string, value);
     } else {
-      if (typeof key === 'string') {
-        return this.el.getAttribute(key);
-      }
       Object.keys(key).forEach((k: string) => {
         const kv = key[k];
         if (key.hasOwnProperty(k)) {
@@ -215,10 +212,13 @@ class ReElement {
     return this;
   }
 
-  // css( propertyName )
-  // css( propertyName, value )
-  // css( properties )
-  css(name: string | any, value?: string) {
+  getCss(name: string) {
+    const { style } = this.el;
+    type ObjKey = keyof typeof style;
+    return this.el.style[name as ObjKey];
+  }
+
+  setCss(name: string | any, value?: string) {
     if (value === undefined && typeof name !== 'string') {
       Object.keys(<Object>name).forEach((k: string) => {
         (<any>this.el.style)[k] = name[k];
@@ -229,7 +229,7 @@ class ReElement {
       this.el.style[name] = value;
       return this;
     }
-    return this.el.style[name];
+    return this;
   }
 
   computedStyle() {
@@ -237,12 +237,12 @@ class ReElement {
   }
 
   show() {
-    this.css('display', 'block');
+    this.setCss('display', 'block');
     return this;
   }
 
   hide() {
-    this.css('display', 'none');
+    this.setCss('display', 'none');
     return this;
   }
 }
