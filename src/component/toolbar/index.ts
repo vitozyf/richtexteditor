@@ -14,12 +14,17 @@ export default class ToolBar {
     this.data = data;
     this.el = h('div', `${cssPrefix}-toolbar`);
 
+    const toolbarBtn = h('button', `${cssPrefix}-toolbar-btncontainer`);
+
     this.init();
 
     const { toolbars } = this.data.options;
     this.toolbarBtns = (<Array<string>>toolbars).map(name => {
-      return new Icon(this.el, name);
+      return new Icon(toolbarBtn, name);
     });
+
+    this.el.children(toolbarBtn);
+
     targetEl.children(this.el);
   }
 
@@ -32,8 +37,25 @@ export default class ToolBar {
     });
   }
 
-  formatDoc(aCommandName: ICommandName, sValue?: any) {
+  formatDoc(aCommandName: ICommandName, sValue: any = null) {
+    console.log(aCommandName);
     document.execCommand(aCommandName, false, sValue);
-    this.el.focus();
+    // this.el.focus();
   }
+
+  //    saveSelection() { // 保存当前Range对象
+  //     let selection = window.getSelection();
+  //     if(selection.rangeCount > 0){
+  //         return sel.getRangeAt(0);
+  //     }
+  //     return null;
+  // };
+  // let selectedRange = saveSelection();
+  //  restoreSelection() {
+  //     let selection = window.getSelection();
+  //     if (selectedRange) {
+  //         selection.removeAllRanges();  // 清空所有 Range 对象
+  //         selection.addRange(selectedRange); // 恢复保存的 Range
+  //     }
+  // }
 }
