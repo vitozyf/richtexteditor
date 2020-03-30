@@ -80,3 +80,14 @@ export const toDisplayString = (val: unknown): string => {
     ? JSON.stringify(val, null, 2)
     : String(val);
 };
+
+// get domdata
+export function getData(
+  element: HTMLElement | EventTarget | null,
+  dataName: string
+): string | null {
+  if (!element || !dataName || !(<HTMLElement>element).getAttribute) {
+    return null;
+  }
+  return (<HTMLElement>element).getAttribute('data-' + dataName);
+}

@@ -2,3 +2,16 @@
   background-color: $toolbar-color;
   padding: 5px;
 }
+.#{$css-prefix}-toolbar-icon {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  // background-color: $toolbar-color;
+  padding: 5px;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  &:hover {
+    background-color: $toolbar-hover-color;
+  }
+}

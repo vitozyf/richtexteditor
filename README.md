@@ -1,4 +1,4 @@
-# pe-editor
+# rt-editor
 
 ## CDN
 
