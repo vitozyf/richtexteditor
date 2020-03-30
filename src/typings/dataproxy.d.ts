@@ -1,9 +1,8 @@
 declare interface IOptionView {
-  width: (() => number) | number;
-  height: (() => number) | number;
+  width: (() => number) | number | string;
+  height: (() => number) | number | string;
 }
 
-type Lang = 'zh-cn';
 type Theme = 'default';
 
 type TextAlign = 'left' | 'right' | 'center' | 'justify';
@@ -25,9 +24,9 @@ interface IAutotypeset {
 declare interface IOption {
   view?: IOptionView;
   // 工具栏
-  toolbars?: Array<Array<string>>;
+  toolbars?: Array<string>;
   // 语言
-  lang?: Lang;
+  lang?: lang;
   // 样式
   style?: {
     bgcolor?: string;

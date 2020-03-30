@@ -2,6 +2,7 @@
 import en from './en';
 
 let $lang: lang = 'en';
+
 const $messages: IMessages = {
   en: en
 };

@@ -1,26 +1,38 @@
-import { h, ReElement } from '@component/element';
+import { h, RtElement } from '@component/element';
 import { cssPrefix } from '@src/config';
-// import Row from '@component/row';
 import DataProxy from '@component/dataproxy';
-import Iframe from '@component/iframe';
-export default class Editor extends Iframe {
-  el: ReElement;
+export default class Editor {
+  el: RtElement;
   data: DataProxy;
-  // row: Row;
-  constructor(targetEl: ReElement, data: DataProxy) {
-    super(targetEl);
+  constructor(targetEl: RtElement, data: DataProxy) {
     this.data = data;
     this.el = h('div', `${cssPrefix}-editor`);
-
-    // this.initStyle();
-    // this.row = new Row(this.el);
-    // targetEl.children(this.el);
+    this.init();
+    targetEl.children(this.el);
   }
 
-  // initStyle(){
-  // 	const {IOptionView<>view} = this.data.options;
-  // 	this.el.setCss({
-  // 		width: `${view.width}px`
-  // 	})
+  private init() {
+    const { data } = this;
+    this.el
+      .setCss({
+        minHeight: '200px',
+        outline: 'none',
+        padding: '10px 5px',
+        fontSize: `${data.options.style?.font?.size}px`
+      })
+      .setAttr({
+        contenteditable: true
+      });
+  }
+  // formatDoc(aCommandName: ICommandName, sValue: any) {
+  //   // if (!this.validateMode(aCommandName)) { return; }
+  //   document.execCommand(aCommandName, false, sValue);
+  //   this.el.focus();
+  // }
+  //  validateMode (aCommandName: ICommandName) {
+  // 	if (!document.getElementById("rte-mode-" + rId.exec(oDoc.id)[0]).checked) { return true; }
+  // 	alert("Uncheck \u00AB" + sModeLabel + "\u00BB.");
+  // 	oDoc.focus();
+  // 	return false;
   // }
 }

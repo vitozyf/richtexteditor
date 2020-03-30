@@ -16,7 +16,8 @@ module.exports = {
       '@assets': path.resolve('src/assets'),
       '@component': path.resolve('src/component'),
       '@core': path.resolve('src/core'),
-      '@utils': path.resolve('src/utils')
+      '@utils': path.resolve('src/utils'),
+      '@locale': path.resolve('src/locale')
     }
   },
 

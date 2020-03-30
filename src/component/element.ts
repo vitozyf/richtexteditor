@@ -3,7 +3,7 @@ interface IReElementScroll {
   left?: number;
 }
 
-class ReElement {
+class RtElement {
   constructor(tag: string | HTMLElement, className: string = '') {
     if (typeof tag === 'string') {
       this.el = document.createElement(tag);
@@ -83,12 +83,12 @@ class ReElement {
   parent() {
     const parentNode = this.el.parentNode as HTMLElement;
     if (parentNode) {
-      return new ReElement(parentNode);
+      return new RtElement(parentNode);
     }
     return null;
   }
 
-  children(...eles: Array<ReElement>) {
+  children(...eles: Array<RtElement>) {
     if (arguments.length === 0) {
       return this.el.childNodes;
     }
@@ -100,11 +100,11 @@ class ReElement {
     this.el.removeChild(el);
   }
 
-  child(arg: ReElement | Text) {
+  child(arg: RtElement | Text) {
     let ele: Element | Text;
     if (typeof arg === 'string') {
       ele = document.createTextNode(arg);
-    } else if (arg instanceof ReElement) {
+    } else if (arg instanceof RtElement) {
       ele = arg.el;
     } else {
       ele = document.createTextNode('');
@@ -248,6 +248,6 @@ class ReElement {
 }
 
 const h = (tag: string, className: string = '') =>
-  new ReElement(tag, className);
+  new RtElement(tag, className);
 
-export { ReElement, h };
+export { RtElement, h };

@@ -17,7 +17,8 @@
       "@assets/*": ["./src/assets/*"],
       "@component/*": ["./src/component/*"],
       "@utils/*": ["./src/utils/*"],
-      "@core/*": ["./src/core/*"]
+      "@core/*": ["./src/core/*"],
+      "@locale/*": ["./src/locale/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
