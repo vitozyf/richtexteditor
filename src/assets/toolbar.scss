@@ -3,20 +3,35 @@
   padding: 5px;
 }
 .#{$css-prefix}-toolbar-icon {
-  width: 26px;
-  height: 26px;
   display: inline-block;
-  // background-color: $toolbar-color;
-  padding: 5px;
-  vertical-align: top;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  &:hover {
-    background-color: $toolbar-hover-color;
-  }
+  width: 100%;
+  height: 100%;
 }
 .#{$css-prefix}-toolbar-btncontainer {
   border: none;
   outline: none;
   background-color: transparent;
+}
+.#{$css-prefix}-toolbar-btn {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  display: inline-block;
+  border: 1px solid transparent;
+  height: 26px;
+  line-height: 26px;
+  min-width: 26px;
+  padding: 0;
+  text-align: center;
+  border-radius: 2px;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &:hover,
+  &.active {
+    background: rgba(0, 0, 0, 0.08);
+  }
 }

@@ -8,11 +8,11 @@ export default {
     'clear', // 清除格式
     'print', //打印
     'undo', //撤销
-    'redo', //重做
+    'redo', //恢复
     'bold', //加粗
     'italic', //斜体
     'underline', //下划线
-    'strikethrough', //删除线
+    'strikeThrough', //删除线
     'justifyLeft', //居左对齐
     'justifyRight', //居右对齐
     'justifyCenter', //居中对齐
@@ -20,17 +20,20 @@ export default {
     'insertOrderedList', //有序列表
     'insertUnorderedList', //无序列表
     'removeFormat', // 清除格式
-    'blockquote', //引用
+    'formatBlock', //引用
     'indent', //添加缩进
     'outdent', //删除缩进
     'createLink', //超链接
     'unlink', //取消链接
+    'selectAll', // 全选
     'cut', //剪切
     'copy', // 复制
-    'paste', // 粘贴
-    'touppercase', //字母大写
-    'tolowercase' //字母小写
+    'superscript', // 上标
+    'subscript' // 下标
+    // 'touppercase', //字母大写
+    // 'tolowercase' //字母小写
 
+    // 'paste', // 粘贴
     // 'snapscreen', //截图
     // 'subscript', //下标
     // 'fontborder', //字符边框
@@ -41,7 +44,6 @@ export default {
     // 'selectall', //全选
     // 'preview', //预览
     // 'horizontal', //分隔线
-    // 'removeformat', //清除格式
     // 'time', //时间
     // 'date', //日期
 
