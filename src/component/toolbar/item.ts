@@ -6,22 +6,20 @@ import { t } from '@locale/locale';
 export default class Item {
   tip: string;
   tag: string;
-  shortcut: string | undefined;
-  value: string | undefined;
+  shortcut?: string;
+  value?: string;
   el: RtElement;
 
   constructor(tag: string, shortcut?: string, value?: string) {
-    console.log(tag);
     this.tip = t(`toolbar.${tag}`);
     if (shortcut) this.tip += ` (${shortcut})`;
     this.tag = tag;
     this.shortcut = shortcut;
     this.value = value;
     this.el = this.element();
-    // this.change = () => {};
   }
 
-  element() {
+  element(): RtElement {
     const { tip } = this;
     return h('div', `${cssPrefix}-toolbar-btn`)
       .on('mouseenter', evt => {

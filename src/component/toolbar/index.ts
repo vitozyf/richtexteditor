@@ -29,11 +29,14 @@ import Subscript from './subscript';
 
 import DataProxy from '@component/dataproxy';
 import { getData } from '@utils/index';
+import IconItem from '@component/toolbar/icon-item';
 
 export default class ToolBar {
   el: RtElement;
   toolbarBtns: Array<any>;
   data: DataProxy;
+  formatBlockEl?: IconItem;
+  createLinkEl?: IconItem;
 
   constructor(targetEl: RtElement, data: DataProxy) {
     this.data = data;
@@ -43,42 +46,40 @@ export default class ToolBar {
 
     this.init();
 
+    const toolbars = this.data.options.toolbars;
+
     this.toolbarBtns = [
-      new Clear(),
-      new Print(),
-      new Undo(),
-      new Redo(),
-      new Bold(),
-      new Italic(),
-      new Underline(),
-      new StrikeThrough(),
-      new JustifyLeft(),
-      new JustifyRight(),
-      new JustifyCenter(),
-      new JustifyFull(),
-      new InsertOrderedList(),
-      new InsertUnorderedList(),
-      new RemoveFormat(),
-      new FormatBlock(),
-      new Indent(),
-      new Outdent(),
-      new CreateLink(),
-      new Unlink(),
-      new SelectAll(),
-      new Cut(),
-      new Copy(),
-      new Superscript(),
-      new Subscript()
+      toolbars?.includes('clear') && new Clear(),
+      toolbars?.includes('print') && new Print(),
+      toolbars?.includes('undo') && new Undo(),
+      toolbars?.includes('redo') && new Redo(),
+      toolbars?.includes('bold') && new Bold(),
+      toolbars?.includes('italic') && new Italic(),
+      toolbars?.includes('underline') && new Underline(),
+      toolbars?.includes('strikeThrough') && new StrikeThrough(),
+      toolbars?.includes('justifyLeft') && new JustifyLeft(),
+      toolbars?.includes('justifyRight') && new JustifyRight(),
+      toolbars?.includes('justifyCenter') && new JustifyCenter(),
+      toolbars?.includes('justifyFull') && new JustifyFull(),
+      toolbars?.includes('insertOrderedList') && new InsertOrderedList(),
+      toolbars?.includes('insertUnorderedList') && new InsertUnorderedList(),
+      toolbars?.includes('removeFormat') && new RemoveFormat(),
+      toolbars?.includes('formatBlock') &&
+        (this.formatBlockEl = new FormatBlock()),
+      toolbars?.includes('indent') && new Indent(),
+      toolbars?.includes('outdent') && new Outdent(),
+      toolbars?.includes('createLink') &&
+        (this.createLinkEl = new CreateLink()),
+      toolbars?.includes('unlink') && new Unlink(),
+      toolbars?.includes('selectAll') && new SelectAll(),
+      toolbars?.includes('cut') && new Cut(),
+      toolbars?.includes('copy') && new Copy(),
+      toolbars?.includes('superscript') && new Superscript(),
+      toolbars?.includes('subscript') && new Subscript()
     ];
 
     this.toolbarBtns.forEach(it => {
-      if (Array.isArray(it)) {
-        it.forEach(i => {
-          toolbarBtn.child(i.el);
-        });
-      } else {
-        toolbarBtn.child(it.el);
-      }
+      toolbarBtn.child(it.el);
     });
 
     this.el.children(toolbarBtn);
@@ -89,17 +90,28 @@ export default class ToolBar {
   init() {
     this.el.on('click', (event: Event) => {
       const aCommandName = getData(event.target, 'aCommandName');
+      let aCommandValue: any = null;
+      switch (aCommandName) {
+        case 'formatBlock':
+          aCommandValue = this.formatBlockEl?.value;
+          break;
+        case 'createLink':
+          aCommandValue = this.createLinkEl?.value;
+          break;
+        default:
+          break;
+      }
       if (aCommandName) {
-        this.formatDoc(<ICommandName>aCommandName);
+        this.formatDoc(<ICommandName>aCommandName, aCommandValue);
       }
     });
   }
 
-  formatDoc(aCommandName: ICommandName, sValue: any = null) {
+  formatDoc(aCommandName: ICommandName, sValue?: string) {
     document.execCommand(aCommandName, false, sValue);
   }
 
-  //    saveSelection() { // 保存当前Range对象
+  // saveSelection() { // 保存当前Range对象
   //     let selection = window.getSelection();
   //     if(selection.rangeCount > 0){
   //         return sel.getRangeAt(0);
@@ -107,7 +119,7 @@ export default class ToolBar {
   //     return null;
   // };
   // let selectedRange = saveSelection();
-  //  restoreSelection() {
+  // restoreSelection() {
   //     let selection = window.getSelection();
   //     if (selectedRange) {
   //         selection.removeAllRanges();  // 清空所有 Range 对象
