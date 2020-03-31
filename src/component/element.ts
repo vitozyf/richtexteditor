@@ -4,6 +4,8 @@ interface IReElementScroll {
 }
 
 class RtElement {
+  public el: HTMLElement;
+
   constructor(tag: string | HTMLElement, className: string = '') {
     if (typeof tag === 'string') {
       this.el = document.createElement(tag);
@@ -12,7 +14,6 @@ class RtElement {
       this.el = tag;
     }
   }
-  public el: HTMLElement;
 
   on(eventNames: EventNames, handler: EventHandler) {
     // const [fen, ...oen] = eventNames.split('.');
@@ -192,7 +193,7 @@ class RtElement {
       this.el.innerHTML = content;
       return this;
     }
-    return this.el.innerHTML;
+    return this;
   }
 
   val(v: string) {
