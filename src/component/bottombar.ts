@@ -31,7 +31,7 @@ class BottomBar {
         fontSize: '12px',
         color: '#aaa'
       })
-      .html(wordCountMsgFormat);
+      .setHtml(wordCountMsgFormat);
     this.el.children(message);
   }
 }

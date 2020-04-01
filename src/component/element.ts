@@ -188,20 +188,28 @@ class RtElement {
     return this;
   }
 
-  html(content: string) {
+  getHtml() {
+    return this.el.innerHTML;
+  }
+
+  setHtml(content?: string) {
     if (content !== undefined) {
       this.el.innerHTML = content;
-      return this;
     }
     return this;
   }
 
-  val(v: string) {
-    if (v !== undefined) {
-      (<HTMLInputElement>this.el).value = v;
-      return this;
-    }
+  getText() {
+    return this.el.innerText;
+  }
+
+  getValue() {
     return (<HTMLInputElement>this.el).value;
+  }
+
+  setValue(v: string) {
+    (<HTMLInputElement>this.el).value = v;
+    return this;
   }
 
   focus() {

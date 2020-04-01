@@ -9,7 +9,7 @@ export default function tooltip(html: string, target: HTMLElement) {
   // }
   const { left, top, width, height } = target.getBoundingClientRect();
   const el = h('div', `${cssPrefix}-tooltip`)
-    .html(html)
+    .setHtml(html)
     .show();
   document.body.appendChild(el.el);
   const elBox = el.box();

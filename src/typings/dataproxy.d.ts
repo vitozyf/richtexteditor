@@ -23,6 +23,8 @@ interface IAutotypeset {
 
 declare interface IOption {
   view?: IOptionView;
+  // 初始值内容
+  initialContent?: string;
   // 工具栏
   toolbars?: Array<string>;
   // 语言

@@ -32,6 +32,7 @@ class Rteditor {
     this.editor = new Editor(rootEl, this.data);
     this.bottomBar = new BottomBar(rootEl, this.data);
     document.execCommand('defaultParagraphSeparator', false, 'p');
+    this.ready();
   }
 
   init(rootEl: RtElement) {
@@ -52,6 +53,36 @@ class Rteditor {
       width: rootWidth,
       height: rootHeight
     });
+  }
+
+  // 初始化完成回调
+  ready(cb?: () => {}) {
+    cb && cb();
+  }
+
+  on(eventName: IEditorEventName, func: () => void) {
+    this.editor.on(eventName, func);
+    return this;
+  }
+
+  setContent(value: string, isAppendTo?: boolean) {
+    let html = value;
+    if (isAppendTo) {
+      const currentValue = this.getContent(true);
+      html = `${currentValue}${value}`;
+    }
+    this.editor.el.setHtml(html);
+  }
+
+  getContent(isHtml?: boolean) {
+    if (isHtml) {
+      return this.editor.el.getHtml();
+    }
+    return this.editor.el.getText();
+  }
+
+  static locale(lang: lang, message: IMessage) {
+    locale(lang, message);
   }
 }
 

@@ -46,3 +46,8 @@ declare type ICommandName =
   | 'undo'
   | 'unlink'
   | 'styleWithCSS';
+
+declare type IEditorEventName =
+  | 'editor-focus'
+  | 'editor-blur'
+  | 'editor-change';
