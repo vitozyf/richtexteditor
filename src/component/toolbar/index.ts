@@ -101,6 +101,7 @@ export default class ToolBar {
         default:
           break;
       }
+      console.log(aCommandName);
       if (aCommandName) {
         this.formatDoc(<ICommandName>aCommandName, aCommandValue);
       }
