@@ -49,9 +49,8 @@ declare interface IOption {
   readonly?: boolean;
   // 字体设置 label留空支持多语言自动切换
   fontfamily?: Array<{
-    label: string;
-    name: string;
-    val: string;
+    key: string;
+    title: string;
   }>;
   //字号选项
   fontsize?: Array<number>;

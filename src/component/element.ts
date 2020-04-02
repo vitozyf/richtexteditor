@@ -15,35 +15,34 @@ class RtElement {
     }
   }
 
-  on(eventNames: EventNames, handler: EventHandler) {
-    // const [fen, ...oen] = eventNames.split('.');
-    // let eventName = fen;
-    // if (
-    //   eventName === 'mousewheel' &&
-    //   /Firefox/i.test(window.navigator.userAgent)
-    // ) {
-    //   eventName = 'DOMMouseScroll';
-    // }
-    // this.el.addEventListener(eventName, (evt: any) => {
-    //   handler(evt);
-    //   for (let i = 0; i < oen.length; i += 1) {
-    //     const k = oen[i];
-    //     if (k === 'left' && evt.button !== 0) {
-    //       return;
-    //     }
-    //     if (k === 'right' && evt.button !== 2) {
-    //       return;
-    //     }
-    //     if (k === 'stop') {
-    //       evt.stopPropagation();
-    //     }
-    //   }
-    // });
-    if (this.el.addEventListener) {
-      this.el.addEventListener(eventNames, handler, false);
-    } else {
-      (<any>this.el).attachEvent('on' + eventNames, handler);
+  on(eventNames: EventNames, handler: (p: Event) => void) {
+    const [fen, ...oen] = eventNames.split('.');
+    let eventName = fen;
+    if (
+      eventName === 'mousewheel' &&
+      /Firefox/i.test(window.navigator.userAgent)
+    ) {
+      eventName = 'DOMMouseScroll';
     }
+    this.el.addEventListener(
+      eventName,
+      (evt: Event) => {
+        handler(evt);
+        for (let i = 0; i < oen.length; i += 1) {
+          const k = oen[i];
+          if (k === 'left' && (<MouseEvent>evt).button !== 0) {
+            return;
+          }
+          if (k === 'right' && (<MouseEvent>evt).button !== 2) {
+            return;
+          }
+          if (k === 'stop') {
+            evt.stopPropagation();
+          }
+        }
+      },
+      false
+    );
     return this;
   }
 
@@ -89,9 +88,9 @@ class RtElement {
     return null;
   }
 
-  children(...eles: Array<RtElement>) {
+  children(...eles: Array<RtElement | Text>) {
     if (arguments.length === 0) {
-      return this.el.childNodes;
+      return this;
     }
     eles.forEach(ele => this.child(ele));
     return this;
@@ -254,6 +253,8 @@ class RtElement {
     this.setCss('display', 'none');
     return this;
   }
+
+  change(...arg: Array<any>) {}
 }
 
 const h = (tag: string, className: string = '') =>

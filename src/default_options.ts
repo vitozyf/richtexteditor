@@ -125,61 +125,13 @@ export default {
   theme: 'default',
   readonly: false,
   fontfamily: [
-    {
-      label: '',
-      name: 'songti',
-      val: '宋体,SimSun'
-    },
-    {
-      label: '',
-      name: 'kaiti',
-      val: '楷体,楷体_GB2312, SimKai'
-    },
-    {
-      label: '',
-      name: 'yahei',
-      val: '微软雅黑,Microsoft YaHei'
-    },
-    {
-      label: '',
-      name: 'heiti',
-      val: '黑体, SimHei'
-    },
-    {
-      label: '',
-      name: 'lishu',
-      val: '隶书, SimLi'
-    },
-    {
-      label: '',
-      name: 'andaleMono',
-      val: 'andale mono'
-    },
-    {
-      label: '',
-      name: 'arial',
-      val: 'arial, helvetica,sans-serif'
-    },
-    {
-      label: '',
-      name: 'arialBlack',
-      val: 'arial black,avant garde'
-    },
-    {
-      label: '',
-      name: 'comicSansMs',
-      val: 'comic sans ms'
-    },
-    {
-      label: '',
-      name: 'impact',
-      val: 'impact,chicago'
-    },
-    {
-      label: '',
-      name: 'timesNewRoman',
-      val: 'times new roman'
-    }
+    { key: 'Arial', title: 'Arial' },
+    { key: 'Helvetica', title: 'Helvetica' },
+    { key: 'Source Sans Pro', title: 'Source Sans Pro' },
+    { key: 'Comic Sans MS', title: 'Comic Sans MS' },
+    { key: 'Courier New', title: 'Courier New' },
+    { key: 'Verdana', title: 'Verdana' },
+    { key: 'Lato', title: 'Lato' }
   ],
   fontsize: [10, 11, 12, 14, 16, 18, 20, 24, 36],
   rowspacingtop: [5, 10, 15, 20, 25],

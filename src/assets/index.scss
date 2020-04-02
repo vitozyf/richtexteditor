@@ -1,6 +1,7 @@
 @import './mixin.scss';
 @import './icon.scss';
 @import './toolbar.scss';
+@import './dropdown.scss';
 
 p {
   outline: none;
@@ -28,7 +29,7 @@ p {
   overflow-y: auto;
   min-height: 200px;
   outline: none;
-  // padding: 10px 5px;
+  padding: 10px 5px;
 }
 // .#{$css-prefix}-MidasForm {
 //   border: none;

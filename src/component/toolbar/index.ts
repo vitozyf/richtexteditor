@@ -26,10 +26,11 @@ import Cut from './cut';
 import Copy from './copy';
 import Superscript from './superscript';
 import Subscript from './subscript';
+import Font from './font';
 
 import DataProxy from '@component/dataproxy';
 import { getData } from '@utils/index';
-import IconItem from '@component/toolbar/icon-item';
+import IconItem from '@src/component/toolbar/icon_item';
 
 export default class ToolBar {
   el: RtElement;
@@ -37,6 +38,7 @@ export default class ToolBar {
   data: DataProxy;
   formatBlockEl?: IconItem;
   createLinkEl?: IconItem;
+  fontEl?: Font;
 
   constructor(targetEl: RtElement, data: DataProxy) {
     this.data = data;
@@ -75,7 +77,8 @@ export default class ToolBar {
       toolbars?.includes('cut') && new Cut(),
       toolbars?.includes('copy') && new Copy(),
       toolbars?.includes('superscript') && new Superscript(),
-      toolbars?.includes('subscript') && new Subscript()
+      toolbars?.includes('subscript') && new Subscript(),
+      (this.fontEl = new Font(this.data))
     ];
 
     this.toolbarBtns.forEach(it => {
@@ -101,7 +104,6 @@ export default class ToolBar {
         default:
           break;
       }
-      console.log(aCommandName);
       if (aCommandName) {
         this.formatDoc(<ICommandName>aCommandName, aCommandValue);
       }

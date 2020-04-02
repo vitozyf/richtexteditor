@@ -29,4 +29,5 @@ export default class Item {
   }
 
   setState(disabled: boolean) {}
+  change(...arg: Array<any>) {}
 }

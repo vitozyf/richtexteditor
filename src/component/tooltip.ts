@@ -4,9 +4,9 @@ import { bind } from '@utils/event';
 import { cssPrefix } from '@src/config';
 
 export default function tooltip(html: string, target: HTMLElement) {
-  // if (target.classList.contains('active')) {
-  //   return;
-  // }
+  if (target.classList.contains('active')) {
+    return;
+  }
   const { left, top, width, height } = target.getBoundingClientRect();
   const el = h('div', `${cssPrefix}-tooltip`)
     .setHtml(html)

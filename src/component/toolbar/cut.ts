@@ -1,4 +1,4 @@
-import IconItem from '@component/toolbar/icon-item';
+import IconItem from '@src/component/toolbar/icon_item';
 
 export default class Cut extends IconItem {
   constructor() {

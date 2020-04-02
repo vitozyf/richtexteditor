@@ -27,7 +27,8 @@ export default {
     superscript: '上标',
     subscript: '下标',
     touppercase: '字母大写',
-    tolowercase: '字母小写'
+    tolowercase: '字母小写',
+    fontfamily: '字体'
   },
   contextmenu: {
     copy: '复制',
