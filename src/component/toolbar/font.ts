@@ -11,7 +11,7 @@ export default class Font extends DropdownItem {
       key: string;
       title: string;
     }>;
-    super('fontfamily');
+    super('fontName');
   }
 
   getValue(it: any) {

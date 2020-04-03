@@ -8,6 +8,21 @@ import { locale } from '@src/locale/locale';
 import '@assets/index.scss';
 let id: number = 0;
 
+function toolbarChange(this: Rteditor, type: string, value: any) {
+  const documentCommandNames = ['fontName', 'fontSize', 'createLink'];
+  if (documentCommandNames.includes(type)) {
+    this.toolBar.formatDoc(<ICommandName>type, value);
+  }
+}
+
+function editorInitEvents(this: Rteditor) {
+  const { toolBar } = <Rteditor>this;
+
+  // toolbar change
+  toolBar.change = (type: string, value: any) =>
+    toolbarChange.call(this, type, value);
+}
+
 class Rteditor {
   id: number = id++;
   editor: Editor;
@@ -16,6 +31,9 @@ class Rteditor {
   bottomBar: BottomBar;
 
   constructor(selectors: HTMLElement | string, options: IOption = {}) {
+    if (!selectors) {
+      throw new Error('no selector is passed in');
+    }
     this.data = new DataProxy(entityName, options);
 
     let targetEl: HTMLElement;
@@ -25,13 +43,12 @@ class Rteditor {
       targetEl = <HTMLElement>selectors;
     }
     const rootEl = h('div', `${cssPrefix}`);
-    this.init(rootEl);
-
     targetEl.appendChild(rootEl.el);
     this.toolBar = new ToolBar(rootEl, this.data);
     this.editor = new Editor(rootEl, this.data);
     this.bottomBar = new BottomBar(rootEl, this.data);
-    document.execCommand('defaultParagraphSeparator', false, 'p');
+
+    this.init(rootEl);
     this.ready();
   }
 
@@ -49,13 +66,23 @@ class Rteditor {
         : typeof height === 'string'
         ? height
         : `${height}px`;
+    const zIndex = this.data.options.zIndex;
     rootEl.setCss({
       width: rootWidth,
-      height: rootHeight
+      height: rootHeight,
+      zIndex
     });
+
+    editorInitEvents.call(this);
+
+    this.toolBar.formatDoc('fontName', this.data.getFontfamilyData());
+
+    document.execCommand('defaultParagraphSeparator', false, 'p');
+    document.execCommand('styleWithCSS', false, 'true');
+    document.execCommand('fontSize', false, this.data.getFontSizeData());
   }
 
-  // 初始化完成回调
+  // callback
   ready(cb?: () => {}) {
     cb && cb();
   }

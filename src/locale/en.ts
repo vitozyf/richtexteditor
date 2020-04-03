@@ -28,7 +28,8 @@ export default {
     subscript: 'Subscript',
     touppercase: 'Touppercase',
     tolowercase: 'Tolowercase',
-    fontfamily: 'FontFamily'
+    fontName: 'Font Family',
+    fontSize: 'Font Size'
   },
   contextmenu: {
     copy: 'Copy',

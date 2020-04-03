@@ -30,7 +30,9 @@ export default {
     'cut', //剪切
     'copy', // 复制
     'superscript', // 上标
-    'subscript' // 下标
+    'subscript', // 下标
+    'fontName', // 字体
+    'fontSize' // 字体大小
     // 'touppercase', //字母大写
     // 'tolowercase' //字母小写
 
@@ -111,12 +113,14 @@ export default {
     // 'drafts', // 从草稿箱加载
     // 'charts' // 图表
   ],
+  zIndex: 10000,
   // lang: 'zh-cn',
   style: {
     bgcolor: '#fff',
     color: '#000',
     font: {
-      size: 14,
+      size: 3,
+      family: 'Arial',
       rowspacingtop: 5,
       rowspacingbottom: 5,
       lineheight: 1
@@ -133,7 +137,7 @@ export default {
     { key: 'Verdana', title: 'Verdana' },
     { key: 'Lato', title: 'Lato' }
   ],
-  fontsize: [10, 11, 12, 14, 16, 18, 20, 24, 36],
+  fontsize: [1, 2, 3, 4, 5, 6, 7], // 7:48px 6:32px 5:24px 4:18px 3:16px 2:11px 1:10px
   rowspacingtop: [5, 10, 15, 20, 25],
   rowspacingbottom: [5, 10, 15, 20, 25],
   lineheight: [1, 1.5, 1.75, 2, 3, 4, 5],

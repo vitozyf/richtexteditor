@@ -91,3 +91,18 @@ export function getData(
   }
   return (<HTMLElement>element).getAttribute('data-' + dataName);
 }
+
+export const UA = {
+  _ua: navigator.userAgent,
+
+  // is webkit
+  isWebkit() {
+    const reg = /webkit/i;
+    return reg.test(this._ua);
+  },
+
+  // is IE
+  isIE() {
+    return 'ActiveXObject' in window;
+  }
+};

@@ -21,6 +21,7 @@ p {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  position: relative;
 }
 .#{$css-prefix}-editor {
   -webkit-box-flex: 1;

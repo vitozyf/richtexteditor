@@ -6,6 +6,8 @@ interface IReElementScroll {
 class RtElement {
   public el: HTMLElement;
 
+  xclickoutside?: ((evt: Event | MouseEvent) => void) | null;
+
   constructor(tag: string | HTMLElement, className: string = '') {
     if (typeof tag === 'string') {
       this.el = document.createElement(tag);
@@ -254,7 +256,26 @@ class RtElement {
     return this;
   }
 
-  change(...arg: Array<any>) {}
+  // Find the parent node that matches the selector
+  parentUntil(selector: string, _currentElem?: HTMLElement): any {
+    const results = document.querySelectorAll(selector);
+    const length = results.length;
+    if (!length) {
+      return null;
+    }
+
+    const elem = _currentElem || this.el;
+    if (elem.nodeName === 'BODY') {
+      return null;
+    }
+    const parent: HTMLElement = <HTMLElement>elem.parentElement;
+    for (let i = 0; i < length; i++) {
+      if (parent === results[i]) {
+        return new RtElement(parent);
+      }
+    }
+    return this.parentUntil(selector, parent);
+  }
 }
 
 const h = (tag: string, className: string = '') =>

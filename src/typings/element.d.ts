@@ -30,7 +30,9 @@ declare type EventNames =
   | 'touchcancel'
   | 'touchend'
   | 'touchmove'
-  | 'touchstart';
+  | 'touchstart'
+  | 'compositionstart'
+  | 'compositionend';
 
 declare type EventHandler = (
   this: HTMLElement,

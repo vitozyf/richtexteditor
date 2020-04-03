@@ -1,5 +1,5 @@
 import { RtElement, h } from '@component/element';
-// import { bindClickoutside, unbindClickoutside } from './event';
+import { bindClickoutside, unbindClickoutside } from '@utils/event';
 import { cssPrefix } from '@src/config';
 
 export default class Dropdown extends RtElement {
@@ -54,6 +54,8 @@ export default class Dropdown extends RtElement {
 
   headerClick() {}
 
+  change(...arg: Array<any>) {}
+
   setContentChildren(...children: Array<RtElement>) {
     this.contentEl.setHtml('');
     if (children.length > 0) {
@@ -70,16 +72,16 @@ export default class Dropdown extends RtElement {
     const { contentEl } = this;
     contentEl.show();
     this.parent()?.active();
-    // bindClickoutside(this.parent(), () => {
-    //   this.hide();
-    // });
+    bindClickoutside(<RtElement>this.parent(), () => {
+      this.hide();
+    });
     return this;
   }
 
   hide() {
     this.parent()?.active(false);
     this.contentEl.hide();
-    // unbindClickoutside(this.parent());
+    unbindClickoutside(<RtElement>this.parent());
     return this;
   }
 }

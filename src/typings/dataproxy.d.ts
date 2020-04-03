@@ -27,6 +27,8 @@ declare interface IOption {
   initialContent?: string;
   // 工具栏
   toolbars?: Array<string>;
+  // z-index
+  zIndex?: number;
   // 语言
   lang?: lang;
   // 样式
@@ -36,6 +38,8 @@ declare interface IOption {
     font?: {
       // 字号选项配置的值之一
       size?: number;
+      // fontfamily之一的key
+      family?: string;
       //段间距选项配置的值之一
       rowspacingtop?: number;
       rowspacingbottom?: number;

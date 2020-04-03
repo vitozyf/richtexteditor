@@ -10,7 +10,6 @@ export default class Editor {
   constructor(targetEl: RtElement, data: DataProxy) {
     this.data = data;
     this.el = h('div', `${cssPrefix}-editor`);
-    this.init();
     // ----------
     // this.el = h('div', `${cssPrefix}-editor`);
     // const MidasFormEl = h('iframe', `${cssPrefix}-MidasForm`);
@@ -28,16 +27,14 @@ export default class Editor {
     // ----------
     this.eventMap = new Map();
     targetEl.children(this.el);
+    this.init();
   }
 
   private init() {
     const { data, el } = this;
-    el.setCss({
-      fontSize: `${data.options.style?.font?.size}px`
+    el.setAttr({
+      contenteditable: true
     })
-      .setAttr({
-        contenteditable: true
-      })
       .setHtml(data.options.initialContent)
       .on('focus', event => {
         this.trigger('editor-focus', {
@@ -60,7 +57,15 @@ export default class Editor {
         //     html: el.getHtml()
         //   });
         // }
+      })
+      .on('compositionstart', event => {
+        console.log(11, event);
+      })
+      .on('compositionend', event => {
+        console.log(22, event);
       });
+
+    this.el.focus();
   }
 
   on(eventName: IEditorEventName, func: (...args: Array<any>) => void) {
