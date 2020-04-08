@@ -1,16 +1,12 @@
-// import IconItem from '@src/component/toolbar/icon_item';
 import DropdownItem from '@component/toolbar/dropdown_item';
-import DropdownLink from '@component/toolbar/dropdown_link';
-// export default class CreateLink extends IconItem {
-//   constructor() {
-//     super('createLink', '', '');
-//   }
-// }
+import DropdownLink from '@src/component/dropdown_link';
 
 export default class CreateLink extends DropdownItem {
   constructor() {
     super('createLink');
   }
+
+  saveRange() {}
 
   getValue(it: any) {
     return it;

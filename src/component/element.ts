@@ -98,6 +98,15 @@ class RtElement {
     return this;
   }
 
+  getChildren() {
+    const elem = this.el;
+    if (!elem) {
+      return null;
+    }
+
+    return h(<any>elem.children);
+  }
+
   removeChild(el: HTMLElement) {
     this.el.removeChild(el);
   }
@@ -278,7 +287,7 @@ class RtElement {
   }
 }
 
-const h = (tag: string, className: string = '') =>
+const h = (tag: string | HTMLElement, className: string = '') =>
   new RtElement(tag, className);
 
 export { RtElement, h };

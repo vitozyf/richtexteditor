@@ -31,6 +31,10 @@ export default {
     fontName: 'Font Family',
     fontSize: 'Font Size'
   },
+  button: {
+    save: 'Save',
+    link: 'Link'
+  },
   contextmenu: {
     copy: 'Copy',
     cut: 'Cut',

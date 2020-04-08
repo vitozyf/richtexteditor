@@ -27,7 +27,6 @@ export default class Item {
       })
       .setAttr('data-tooltip', tip);
   }
-
   setState(disabled: boolean) {}
   change(...arg: Array<any>) {}
 }

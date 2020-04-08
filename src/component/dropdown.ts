@@ -68,6 +68,8 @@ export default class Dropdown extends RtElement {
     this.hide();
   }
 
+  // showHandler() {}
+
   show() {
     const { contentEl } = this;
     contentEl.show();
@@ -75,6 +77,7 @@ export default class Dropdown extends RtElement {
     bindClickoutside(<RtElement>this.parent(), () => {
       this.hide();
     });
+    // this.showHandler();
     return this;
   }
 

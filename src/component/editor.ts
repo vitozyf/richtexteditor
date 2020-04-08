@@ -7,7 +7,7 @@ export default class Editor {
   data: DataProxy;
   eventMap: Map<IEditorEventName, (...args: Array<any>) => void>;
 
-  constructor(targetEl: RtElement, data: DataProxy) {
+  constructor(data: DataProxy) {
     this.data = data;
     this.el = h('div', `${cssPrefix}-editor`);
     // ----------
@@ -26,7 +26,6 @@ export default class Editor {
     // this.el.children(MidasFormEl);
     // ----------
     this.eventMap = new Map();
-    targetEl.children(this.el);
     this.init();
   }
 

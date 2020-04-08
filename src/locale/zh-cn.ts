@@ -31,6 +31,10 @@ export default {
     fontName: '字体',
     fontSize: '字体大小'
   },
+  button: {
+    save: '保存',
+    link: '链接'
+  },
   contextmenu: {
     copy: '复制',
     cut: '剪切',

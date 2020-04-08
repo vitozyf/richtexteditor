@@ -1,0 +1,11 @@
+.#{$css-prefix}-button {
+  cursor: pointer;
+  padding: 3px 5px;
+  font-size: 12px;
+  &.text {
+    color: $button-text-color;
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}

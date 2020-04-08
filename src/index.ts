@@ -5,14 +5,22 @@ import { cssPrefix, entityName } from '@src/config';
 import ToolBar from '@component/toolbar';
 import BottomBar from './component/bottombar';
 import { locale } from '@src/locale/locale';
+import Selection from '@core/selection';
+import '@src/assets/iconfont';
 import '@assets/index.scss';
 let id: number = 0;
 
+function saveRange(this: Rteditor) {
+  const { toolBar } = <Rteditor>this;
+
+  // toolbar change
+  toolBar.saveRange = this.selection.saveRange;
+}
+
 function toolbarChange(this: Rteditor, type: string, value: any) {
-  const documentCommandNames = ['fontName', 'fontSize', 'createLink'];
-  if (documentCommandNames.includes(type)) {
-    this.toolBar.formatDoc(<ICommandName>type, value);
-  }
+  this.selection.saveRange();
+  this.selection.restoreSelection();
+  this.toolBar.formatDoc(<ICommandName>type, value);
 }
 
 function editorInitEvents(this: Rteditor) {
@@ -29,6 +37,7 @@ class Rteditor {
   data: DataProxy;
   toolBar: ToolBar;
   bottomBar: BottomBar;
+  selection: Selection;
 
   constructor(selectors: HTMLElement | string, options: IOption = {}) {
     if (!selectors) {
@@ -43,12 +52,19 @@ class Rteditor {
       targetEl = <HTMLElement>selectors;
     }
     const rootEl = h('div', `${cssPrefix}`);
+    this.editor = new Editor(this.data);
+    this.selection = new Selection(this.editor);
+    this.toolBar = new ToolBar(this.data, this.selection);
+    this.bottomBar = new BottomBar(this.data);
+
+    rootEl.children(this.toolBar.el);
+    rootEl.children(this.editor.el);
+    rootEl.children(this.bottomBar.el);
+
     targetEl.appendChild(rootEl.el);
-    this.toolBar = new ToolBar(rootEl, this.data);
-    this.editor = new Editor(rootEl, this.data);
-    this.bottomBar = new BottomBar(rootEl, this.data);
 
     this.init(rootEl);
+    this.initSelection(true);
     this.ready();
   }
 
@@ -74,12 +90,40 @@ class Rteditor {
     });
 
     editorInitEvents.call(this);
+    saveRange.call(this);
 
     this.toolBar.formatDoc('fontName', this.data.getFontfamilyData());
 
     document.execCommand('defaultParagraphSeparator', false, 'p');
     document.execCommand('styleWithCSS', false, 'true');
     document.execCommand('fontSize', false, this.data.getFontSizeData());
+  }
+  initSelection(addNewLine?: boolean) {
+    const $textElem = this.editor.el;
+    const $children = <RtElement>$textElem.getChildren();
+
+    if ((<any>$children.el).length === 0) {
+      // If the editor area is empty, add an empty line and reset the selection
+      $textElem.children(h('p').children(h('br')));
+      this.initSelection();
+      return;
+    }
+
+    const $last = (<any>$children.el)[(<any>$children.el).length - 1];
+
+    if (addNewLine) {
+      // add new empty line
+      const html: string = $last.innerHTML.toLowerCase();
+      const nodeName = $last.nodeName;
+      if ((html !== '<br>' && html !== '<br/>') || nodeName !== 'P') {
+        $textElem.children(h('p').children(h('br')));
+        this.initSelection();
+        return;
+      }
+    }
+
+    this.selection.createRangeByElem(h($last), false, true);
+    this.selection.restoreSelection();
   }
 
   // callback

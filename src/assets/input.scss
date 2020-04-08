@@ -1,0 +1,13 @@
+.#{$css-prefix}-input {
+  border-radius: 2px;
+  outline: none;
+  border: none;
+  border-bottom: $border;
+  padding: $input-padding;
+  &:focus {
+    border-bottom: $input-border-focus;
+  }
+}
+.#{$css-prefix}-input-border {
+  border: $border-style;
+}

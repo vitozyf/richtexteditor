@@ -39,8 +39,6 @@ export function bindClickoutside(
   cb: (target: RtElement) => void
 ) {
   el.xclickoutside = (evt: MouseEvent | Event) => {
-    // ignore double click
-    // console.log('evt:', evt);
     if ((<MouseEvent>evt).detail === 2 || el.contains(<HTMLElement>evt.target))
       return;
     if (cb) cb(el);

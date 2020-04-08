@@ -30,8 +30,7 @@ import Font from './font';
 import FontSize from './font_size';
 
 import DataProxy from '@component/dataproxy';
-import { getData } from '@utils/index';
-import IconItem from '@src/component/toolbar/icon_item';
+import Selection from '@core/selection';
 
 function inTo(this: ToolBar, name: string) {
   const toolbars = this.data.options.toolbars;
@@ -42,13 +41,14 @@ export default class ToolBar {
   el: RtElement;
   toolbarBtns: Array<any>;
   data: DataProxy;
-  formatBlockEl?: IconItem;
-  createLinkEl?: IconItem;
+  selection: Selection;
   fontEl?: Font;
   fontSizeEl?: FontSize;
+  createLinkEl?: CreateLink;
 
-  constructor(targetEl: RtElement, data: DataProxy) {
+  constructor(data: DataProxy, selection: Selection) {
     this.data = data;
+    this.selection = selection;
     this.el = h('div', `${cssPrefix}-toolbar`);
     const toolbarBtn = h('button', `${cssPrefix}-toolbar-btncontainer`);
 
@@ -68,8 +68,7 @@ export default class ToolBar {
       inTo.call(this, 'insertOrderedList') && new InsertOrderedList(),
       inTo.call(this, 'insertUnorderedList') && new InsertUnorderedList(),
       inTo.call(this, 'removeFormat') && new RemoveFormat(),
-      inTo.call(this, 'formatBlock') &&
-        (this.formatBlockEl = new FormatBlock()),
+      inTo.call(this, 'formatBlock') && new FormatBlock(),
       inTo.call(this, 'indent') && new Indent(),
       inTo.call(this, 'outdent') && new Outdent(),
       inTo.call(this, 'createLink') && (this.createLinkEl = new CreateLink()),
@@ -92,36 +91,18 @@ export default class ToolBar {
       }
     });
 
-    this.init();
+    this.el.on('click', () => {
+      this.selection.saveRange();
+    });
 
     this.el.children(toolbarBtn);
-
-    targetEl.children(this.el);
   }
 
   change(...args: Array<any>) {}
 
-  init() {
-    this.el.on('click', (event: Event) => {
-      const aCommandName = getData(event.target, 'aCommandName');
-      let aCommandValue: any = null;
-      switch (aCommandName) {
-        case 'formatBlock':
-          aCommandValue = this.formatBlockEl?.value;
-          break;
-        case 'createLink':
-          aCommandValue = this.createLinkEl?.value;
-          break;
-        default:
-          break;
-      }
-      if (aCommandName) {
-        this.formatDoc(<ICommandName>aCommandName, aCommandValue);
-      }
-    });
-  }
+  saveRange() {}
 
-  // 执行给定的命令。
+  // Execute the given command.
   formatDoc(aCommandName: ICommandName, sValue?: string) {
     document.execCommand(aCommandName, false, sValue);
   }
@@ -145,20 +126,4 @@ export default class ToolBar {
   queryCommandValue(aCommandName: ICommandName) {
     return document.queryCommandValue(aCommandName);
   }
-
-  // saveSelection() { // 保存当前Range对象
-  //     let selection = window.getSelection();
-  //     if(selection.rangeCount > 0){
-  //         return sel.getRangeAt(0);
-  //     }
-  //     return null;
-  // };
-  // let selectedRange = saveSelection();
-  // restoreSelection() {
-  //     let selection = window.getSelection();
-  //     if (selectedRange) {
-  //         selection.removeAllRanges();  // 清空所有 Range 对象
-  //         selection.addRange(selectedRange); // 恢复保存的 Range
-  //     }
-  // }
 }

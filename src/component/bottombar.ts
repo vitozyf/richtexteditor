@@ -6,11 +6,10 @@ class BottomBar {
   el: RtElement;
   data: DataProxy;
 
-  constructor(target: RtElement, data: DataProxy) {
+  constructor(data: DataProxy) {
     this.data = data;
     this.el = h('div', `${cssPrefix}-bottombar`);
     this.init();
-    target.children(this.el);
   }
 
   private init() {

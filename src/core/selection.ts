@@ -28,7 +28,7 @@ export default class Selection {
     }
   }
 
-  saveRange(_range: Range) {
+  saveRange(_range?: Range) {
     if (_range) {
       this._currentRange = _range;
       return this;
@@ -124,9 +124,9 @@ export default class Selection {
 
   // Create a blank (that is, &#8203 characters) selection
   createEmptyRange() {
-    const editor = this.editor;
+    // const editor = this.editor;
     const range = this.getRange();
-    let $elem;
+    // let $elem;
     if (!range) {
       return;
     }
