@@ -31,5 +31,7 @@ const mergeDeep = (object: Object = {}, ...sources: Array<Object>) => {
 };
 
 export default {
-  merge: (...sources: Array<Object>) => mergeDeep({}, ...sources)
+  merge<T extends Object>(...sources: Array<T>): T {
+    return mergeDeep({}, ...sources) as T;
+  }
 };

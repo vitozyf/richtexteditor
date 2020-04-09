@@ -6,11 +6,7 @@ export default class DataProxy {
   name: string;
   constructor(name: string, options: IOption) {
     this.name = name;
-    const opts: IOption = helper.merge(defaultOptions, options);
-    this.options = helper.merge(opts, {
-      defaultFontfamily: opts.fontfamily ? opts.fontfamily[0]?.key : '',
-      defaultFontsize: opts.fontsize ? opts.fontsize[0] : 3
-    });
+    this.options = helper.merge(<IOption>defaultOptions, options);
   }
 
   getFontfamilyData() {
