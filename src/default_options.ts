@@ -123,7 +123,7 @@ export default {
       family: 'Arial',
       rowspacingtop: 5,
       rowspacingbottom: 5,
-      lineheight: 1
+      lineheight: 1.35
     }
   },
   theme: 'default',
@@ -140,7 +140,7 @@ export default {
   fontsize: [1, 2, 3, 4, 5, 6, 7], // 7:48px 6:32px 5:24px 4:18px 3:16px 2:11px 1:10px
   rowspacingtop: [5, 10, 15, 20, 25],
   rowspacingbottom: [5, 10, 15, 20, 25],
-  lineheight: [1, 1.5, 1.75, 2, 3, 4, 5],
+  lineheight: [1, 1.35, 1.5, 1.75, 2, 3, 4, 5],
   enableContextMenu: true,
   contextMenu: [],
   wordCount: true,

@@ -213,6 +213,13 @@ class RtElement {
     return this.el.innerText;
   }
 
+  setText(content?: string) {
+    if (content !== undefined) {
+      this.el.innerText = content;
+    }
+    return this;
+  }
+
   getValue() {
     return (<HTMLInputElement>this.el).value;
   }

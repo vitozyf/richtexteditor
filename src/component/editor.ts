@@ -6,65 +6,57 @@ export default class Editor {
   el: RtElement;
   data: DataProxy;
   eventMap: Map<IEditorEventName, (...args: Array<any>) => void>;
+  value: string = '';
 
   constructor(data: DataProxy) {
     this.data = data;
     this.el = h('div', `${cssPrefix}-editor`);
-    // ----------
-    // this.el = h('div', `${cssPrefix}-editor`);
-    // const MidasFormEl = h('iframe', `${cssPrefix}-MidasForm`);
-    // MidasFormEl.setAttr({
-    //   src: 'about:blank'
-    // }).on('load', () => {
-    //   const contentDocument = (<HTMLIFrameElement>MidasFormEl.el)
-    //     .contentDocument;
-    //   if (contentDocument) {
-    //     contentDocument.designMode = 'on';
-    //     contentDocument.body.style.margin = '0';
-    //   }
-    // });
-    // this.el.children(MidasFormEl);
-    // ----------
     this.eventMap = new Map();
     this.init();
   }
 
   private init() {
     const { data, el } = this;
+    const lineHeight = data.options.style?.font?.lineheight;
     el.setAttr({
       contenteditable: true
     })
+      .setCss({ lineHeight })
       .setHtml(data.options.initialContent)
       .on('focus', event => {
+        this.value = this.el.getText();
         this.trigger('editor-focus', {
           event,
-          text: el.el.textContent,
+          text: el.getText(),
           html: el.getHtml()
         });
       })
       .on('blur', event => {
         this.trigger('editor-blur', {
           event,
-          text: el.el.textContent,
+          text: el.getText(),
           html: el.getHtml()
         });
 
-        // if (this.value !== el.getHtml()) {
-        //   this.trigger('editor-change', {
-        //     event,
-        //     text: el.el.textContent,
-        //     html: el.getHtml()
-        //   });
-        // }
+        if (this.value !== el.getText()) {
+          this.value = el.getText();
+          this.trigger('editor-change', {
+            event,
+            text: el.getText(),
+            html: el.getHtml()
+          });
+        }
       })
-      .on('compositionstart', event => {
-        console.log(11, event);
-      })
-      .on('compositionend', event => {
-        console.log(22, event);
+      .on('input', () => {
+        this.setBottomBarMessage();
       });
 
-    this.el.focus();
+    // .on('compositionstart', event => {
+    //   console.log(11, event);
+    // })
+    // .on('compositionend', event => {
+    //   console.log(22, event);
+    // });
   }
 
   on(eventName: IEditorEventName, func: (...args: Array<any>) => void) {
@@ -82,15 +74,9 @@ export default class Editor {
     }
   }
 
-  // formatDoc(aCommandName: ICommandName, sValue: any) {
-  //   // if (!this.validateMode(aCommandName)) { return; }
-  //   document.execCommand(aCommandName, false, sValue);
-  //   this.el.focus();
-  // }
-  //  validateMode (aCommandName: ICommandName) {
-  // 	if (!document.getElementById("rte-mode-" + rId.exec(oDoc.id)[0]).checked) { return true; }
-  // 	alert("Uncheck \u00AB" + sModeLabel + "\u00BB.");
-  // 	oDoc.focus();
-  // 	return false;
-  // }
+  clear() {
+    this.el.setHtml('');
+  }
+
+  setBottomBarMessage() {}
 }

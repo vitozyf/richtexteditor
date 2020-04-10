@@ -22,6 +22,7 @@ interface IAutotypeset {
 }
 
 declare interface IOption {
+  // 视图
   view?: IOptionView;
   // 初始值内容
   initialContent?: string;
@@ -79,12 +80,4 @@ declare interface IOption {
   wordCountMsg?: string;
   // 超出字数限制提示 留空支持多语言自动切换
   wordOverFlowMsg?: string;
-  // 点击tab键时移动的空格距离
-  tabSize?: number;
-  // undo操作 可以最多回退的次数
-  maxUndoCount?: number;
-  // undo操作 当输入的字符数超过该值时，保存一次现场
-  maxInputCount?: number;
-  // 自动排版参数
-  autotypeset?: IAutotypeset;
 }

@@ -12,14 +12,29 @@ let id: number = 0;
 
 function saveRange(this: Rteditor) {
   const { toolBar } = <Rteditor>this;
-
   // toolbar change
   toolBar.saveRange = this.selection.saveRange;
+}
+
+function setBottomBarMessage(this: Rteditor) {
+  this.bottomBar.setMessage.call(this.bottomBar);
 }
 
 function toolbarChange(this: Rteditor, type: string, value: any) {
   this.selection.saveRange();
   this.selection.restoreSelection();
+
+  // Initialize selection
+  if (type === 'clear') {
+    this.editor.clear();
+    this.initSelection(true);
+  }
+
+  // Set bottom message
+  const CommandNames = ['clear'];
+  if (CommandNames.includes(type)) {
+    setBottomBarMessage.call(this);
+  }
   this.toolBar.formatDoc(<ICommandName>type, value);
 }
 
@@ -55,7 +70,7 @@ class Rteditor {
     this.editor = new Editor(this.data);
     this.selection = new Selection(this.editor);
     this.toolBar = new ToolBar(this.data, this.selection);
-    this.bottomBar = new BottomBar(this.data);
+    this.bottomBar = new BottomBar(this.data, this.editor);
 
     rootEl.children(this.toolBar.el);
     rootEl.children(this.editor.el);
@@ -69,6 +84,7 @@ class Rteditor {
   }
 
   init(rootEl: RtElement) {
+    const { editor } = this;
     const { width, height } = <IOptionView>this.data.options.view;
     const rootWidth =
       typeof width === 'function'
@@ -97,28 +113,32 @@ class Rteditor {
     document.execCommand('defaultParagraphSeparator', false, 'p');
     document.execCommand('styleWithCSS', false, 'true');
     document.execCommand('fontSize', false, this.data.getFontSizeData());
-  }
-  initSelection(addNewLine?: boolean) {
-    const $textElem = this.editor.el;
-    const $children = <RtElement>$textElem.getChildren();
 
-    if ((<any>$children.el).length === 0) {
+    editor.setBottomBarMessage = () => {
+      setBottomBarMessage.call(this);
+    };
+  }
+  initSelection(addNewLine?: boolean): any {
+    const editorEl = this.editor.el;
+    const editorElChildren = <RtElement>editorEl.getChildren();
+
+    if ((<any>editorElChildren.el).length === 0) {
       // If the editor area is empty, add an empty line and reset the selection
-      $textElem.children(h('p').children(h('br')));
-      this.initSelection();
-      return;
+      editorEl.children(h('p').children(h('br')));
+      return this.initSelection();
     }
 
-    const $last = (<any>$children.el)[(<any>$children.el).length - 1];
+    const $last = (<any>editorElChildren.el)[
+      (<any>editorElChildren.el).length - 1
+    ];
 
     if (addNewLine) {
       // add new empty line
       const html: string = $last.innerHTML.toLowerCase();
       const nodeName = $last.nodeName;
       if ((html !== '<br>' && html !== '<br/>') || nodeName !== 'P') {
-        $textElem.children(h('p').children(h('br')));
-        this.initSelection();
-        return;
+        editorEl.children(h('p').children(h('br')));
+        return this.initSelection();
       }
     }
 
