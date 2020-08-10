@@ -29,7 +29,8 @@ export default {
     touppercase: '字母大写',
     tolowercase: '字母小写',
     fontName: '字体',
-    fontSize: '字体大小'
+    fontSize: '字体大小',
+    backColor: '背景颜色'
   },
   button: {
     save: '保存',

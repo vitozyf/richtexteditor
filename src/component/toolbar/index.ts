@@ -28,6 +28,7 @@ import Superscript from './superscript';
 import Subscript from './subscript';
 import Font from './font';
 import FontSize from './font_size';
+import BackColor from './back_color';
 
 import DataProxy from '@component/dataproxy';
 import Selection from '@core/selection';
@@ -79,7 +80,9 @@ export default class ToolBar {
       inTo.call(this, 'superscript') && new Superscript(),
       inTo.call(this, 'subscript') && new Subscript(),
       inTo.call(this, 'fontName') && (this.fontEl = new Font(this.data)),
-      inTo.call(this, 'fontSize') && (this.fontSizeEl = new FontSize(this.data))
+      inTo.call(this, 'fontSize') &&
+        (this.fontSizeEl = new FontSize(this.data)),
+      inTo.call(this, 'backColor') && new BackColor(this.data)
     ];
 
     this.toolbarBtns.forEach(it => {

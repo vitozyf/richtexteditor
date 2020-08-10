@@ -32,7 +32,8 @@ export default {
     'superscript', // 上标
     'subscript', // 下标
     'fontName', // 字体
-    'fontSize' // 字体大小
+    'fontSize', // 字体大小
+    'backColor' // 背景色
     // 'touppercase', //字母大写
     // 'tolowercase' //字母小写
 

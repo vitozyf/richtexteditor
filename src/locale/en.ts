@@ -29,7 +29,8 @@ export default {
     touppercase: 'Touppercase',
     tolowercase: 'Tolowercase',
     fontName: 'Font Family',
-    fontSize: 'Font Size'
+    fontSize: 'Font Size',
+    backColor: 'Background Color'
   },
   button: {
     save: 'Save',
